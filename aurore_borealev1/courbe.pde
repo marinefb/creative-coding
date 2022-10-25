@@ -9,9 +9,11 @@ class Courbe {
   float w;
   float y, h;
   int nb;
-  int vx;
+  float vx;
+  
+  float px,py;
 
-  Courbe(float x, int y, float w, float h, int nb, int vx) {
+  Courbe(float x, int y, float w, float h, int nb, float vx) {
     nombres = new float[nb];
     nombresSmooth = new float[nb];
     tabColor = new color[nb];
@@ -23,21 +25,19 @@ class Courbe {
     this.vx=vx;
     for (int i=0; i<nb; i++)nombres[i]=random(-10, 10);
   }
+  
 
-
-  void draw() {
+  void drawBoreal() {
     beginShape();
     vertex(x, y);
     float ecart=w/nb;
     for (int i=0; i<nb; i++) {
-      fill(0,0);
       fill(tabColor[i]);
       curveVertex(x+ecart*i, y+nombresSmooth[i]);
     }
     vertex(x+w, y);
     vertex(x+w, y+h);
     for (int i=0; i<nb; i++) {
-      fill(0,0);
       fill(tabColor[i],0);
       curveVertex(x+w-ecart*i, h+y+nombresSmooth[i]);
     }
@@ -49,13 +49,14 @@ class Courbe {
     for(int i=0;i<nombres.length;i++){
       nombresSmooth[i] -= (nombresSmooth[i]-nombres[i])*0.005;
     }
-    this.x+=this.vx;
+    
+    this.px+=this.vx;
   }
   
-  void draw(float px,float py) {
+  void draw() {
     pushMatrix();
     translate(px,py);
-    draw();
+    drawBoreal();
     popMatrix();
   }
   

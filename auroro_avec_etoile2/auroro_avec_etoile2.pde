@@ -60,6 +60,7 @@ void draw() {
     map(s1.getChannel(a),0,1,-10,10),
     200,
     80);
+    fill(0,0);
    
     
     tabCourbe[i].tabColor[a]=col;
